@@ -1,0 +1,38 @@
+name: macOS Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test on ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: macos-15-intel
+            arch: Intel (x86_64)
+          - os: macos-latest
+            arch: Apple Silicon (ARM64)
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and Run Tests
+        run: |
+          make test
+          
+      - name: Parse Results Summary
+        if: always()
+        run: |
+          RESULTS=$(./bin/TestSuite | grep "Summary:")
+          echo "Test Result: $RESULTS"
+          
+          if [[ $RESULTS == *"0 Tests passed"* ]]; then
+             echo "Error: No tests passed or suite failed to run."
+             exit 1
+          fi
