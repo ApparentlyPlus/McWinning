@@ -29,10 +29,15 @@ jobs:
       - name: Parse Results Summary
         if: always()
         run: |
+          if [ ! -f ./bin/TestSuite ]; then
+            echo "Error: ./bin/TestSuite not found. The build likely failed or was cancelled."
+            exit 1
+          fi
+          
           RESULTS=$(./bin/TestSuite | grep "Summary:")
           echo "Test Result: $RESULTS"
           
-          if [[ $RESULTS == *"0 Tests passed"* ]]; then
-             echo "Error: No tests passed or suite failed to run."
+          if [[ $RESULTS == *"Summary: 0/"* ]]; then
+             echo "Error: No tests passed."
              exit 1
           fi
