@@ -1,5 +1,7 @@
 # McWinning
 
+[![macOS Tests](https://github.com/ApparentlyPlus/McWinning/actions/workflows/macOS.yml/badge.svg)](https://github.com/ApparentlyPlus/McWinning/actions/workflows/macOS.yml)
+
 McWinning is a small utility that remaps Windows-style keyboard shortcuts to their macOS equivalents. It intercepts keyboard events using `CGEventTap` and translates them so common Windows shortcuts behave as expected on macOS.
 
 ## Build
