@@ -10,12 +10,17 @@ You can compile the program using `make`:
 make
 ```
 
-Alternatively, compile manually with `clang`:
+This will create the `bin/McWinning` executable.
+
+## Testing
+
+Run the test suite using `make test`:
 
 ```bash
-mkdir bin
-clang -O2 -framework ApplicationServices -framework Cocoa src/McWinning.m -o bin/McWinning
+make test
 ```
+
+The tests mock macOS system APIs to verify shortcut translation logic without affecting your actual system state.
 
 ## Install
 
